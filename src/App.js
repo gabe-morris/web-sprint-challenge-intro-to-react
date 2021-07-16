@@ -5,24 +5,24 @@ import styled from 'styled-components'
 import Character from './components/Character'
 const App = () => {
     const [char, setChar] = useState([])
-    const [currentChar,setCurrentChar] = useState(null)
-    const openDetails = char => {
-      setCurrentChar(char)
-    }
-    const closeDetails = () => {
-      setCurrentChar(null)
+    const [currentChar,setCurrentChar] = useState(false)
+
+    const openDetails = () => {
+      setCurrentChar(!currentChar)
     }
   useEffect(() => {
     axios.get(`https://swapi.dev/api/people`)
     .then (res => setChar(res.data))
+    .catch (err => console.log(err))
   },[])
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
-
+  const Name = props => {
+    const {name} = props
+    console.log(name)
+  }
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-      <Character />
+    <Character />
     </div>
   );
 }
